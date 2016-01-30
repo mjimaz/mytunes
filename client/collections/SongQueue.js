@@ -2,15 +2,16 @@
 var SongQueue = Songs.extend({
 
   initialize: function() {
-    // queue, could be an array
-    // this.set('queue', []);
-    // this.set('front', 0);
-    // // front and end of queue
-    // this.set('queueSize', 0);
-
   },
 
-  enqueue: function(){
+  playFirst: function () {
+    //console.log('playfirst trigger:');
+    this.trigger('playFirst', this);
+    // update player view, set song
+      // with first song
+    // listening ended
   }
+
+  
 
 });
