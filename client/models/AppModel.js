@@ -13,16 +13,13 @@ var AppModel = Backbone.Model.extend({
 
 
     params.library.on('play', function(song) {
-      // console.log('AppModel - play event', song);
       this.set('currentSong', song);
     }, this);
 
 
     params.library.on('enqueue', function(song) {
-      // console.log('AppModel - play event', song);
-      console.log('equeue is triggered', song);
-      this.get('songQueue').enqueue(song);
-    });
+      this.get('songQueue').add(song);
+    }, this);
   }
 
 });
