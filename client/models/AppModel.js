@@ -16,24 +16,33 @@ var AppModel = Backbone.Model.extend({
     }, this);
 
     params.library.on('enqueue', function(song) {
-
       this.get('songQueue').add(song);
-      console.log('song queue: ',this.get('songQueue'));
+      
+      //check size of queue
+        // if the size of songQueue is 1, then play the list and dequeue currentSong.
+      if(this.get('songQueue').length === 1){
+        this.get('songQueue').playFirst();
+        // this.get('currentSong').dequeue();
+      }
 
     }, this);
 
     this.get('songQueue').on('playFirst', function() {
       var firstSong = this.get('songQueue').at(0);
-      console.log('first song:', firstSong);
       this.set('currentSong', firstSong);
     }, this);
 
     params.library.on('dequeue', function() {
       // remove the the first song
       this.get('songQueue').remove(this.get('songQueue').at(0));
-      console.log('dequeue', this.get('songQueue'));
-      this.get('songQueue').playFirst();
       // call playlist
+      if ( this.get('songQueue').length > 0 ) {
+        this.get('songQueue').playFirst();
+      }
+    }, this);
+
+    this.get('songQueue').on('removeFromQueue', function(){
+      this.get('songQueue').remove(arguments[0]);
     }, this);
   }
 
